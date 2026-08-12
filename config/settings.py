@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+from unittest.mock import DEFAULT
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -135,4 +136,17 @@ REST_FRAMEWORK={
     'DEFAULT_AUTHENTICATION_CLASSES':(
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
+
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/day',
+        'user': '50/day',
+    }
+
 }
